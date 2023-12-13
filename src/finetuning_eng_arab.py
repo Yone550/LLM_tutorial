@@ -20,7 +20,7 @@ def data_arrange(data, tokenizer, input_column_name="sentence_eng_Latn", output_
     tokenized_qa = tokenizer(input_qa, return_tensors='pt', padding='max_length', truncation=True, max_length=max_token)
     labels = tokenized_qa['input_ids'][0].clone()
     for i in range(0, max_token):
-        if not tokenized_q['input_ids'][0][i] == 1:
+        if not tokenized_q['input_ids'][0][i] == tokenizer.pad_token_id:
             labels[i] = -100
     return {
         'input': input_q,

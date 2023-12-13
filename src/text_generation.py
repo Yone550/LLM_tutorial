@@ -13,14 +13,14 @@ from transformers import LogitsProcessor,LogitsProcessorList
 class EosTokenRewardLogitProcess(LogitsProcessor):
   def __init__(self, eos_token_id: int, max_length: int):
 
-        if not isinstance(eos_token_id, int) or eos_token_id < 0:
-            raise ValueError(f"`eos_token_id` has to be a positive integer, but is {eos_token_id}")
+    if not isinstance(eos_token_id, int) or eos_token_id < 0:
+        raise ValueError(f"`eos_token_id` has to be a positive integer, but is {eos_token_id}")
 
-        if not isinstance(max_length, int) or max_length < 1:
-          raise ValueError(f"`max_length` has to be a integer bigger than 1, but is {max_length}")
+    if not isinstance(max_length, int) or max_length < 1:
+        raise ValueError(f"`max_length` has to be a integer bigger than 1, but is {max_length}")
 
-        self.eos_token_id = eos_token_id
-        self.max_length=max_length
+    self.eos_token_id = eos_token_id
+    self.max_length=max_length
 
   def __call__(self, input_ids: torch.LongTensor, scores: torch.FloatTensor) -> torch.FloatTensor:
     cur_len = input_ids.shape[-1]
